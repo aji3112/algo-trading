@@ -1,8 +1,11 @@
+import json
 import logging
+from types import SimpleNamespace
 
+import pync
 import requests
-import kiteConstants
-from util import util
+from zerodha.kite.utils import kiteConstants
+from zerodha.kite.utils.generalUtil import util
 
 
 def placeOrder(orderBO):
@@ -26,5 +29,16 @@ def placeOrder(orderBO):
     try:
         placeOrderResponse = requests.post(kiteConstants.place_order_api, data=orderData, headers=utilities.headers)
         logging.info(placeOrderResponse.text)
+        jsonData = json.loads(placeOrderResponse.content, object_hook=lambda d: SimpleNamespace(**d))
+        status = jsonData.status
+        orderId = ''
+        if status == 'success':
+            orderId = jsonData.data.order_id
+            message = 'order successful for symbol {} with transType {}'.format(orderBO.tradingsymbol, orderBO.transaction_type)
+        else:
+            message = 'order failed for symbol {} with transType {}'.format(orderBO.tradingsymbol, orderBO.transaction_type)
+        pync.notify(message)
     except Exception as placeOrderResponseException:
         logging.info(placeOrderResponseException)
+
+    return orderId

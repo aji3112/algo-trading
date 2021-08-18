@@ -1,12 +1,12 @@
 import json
+import logging
 from types import SimpleNamespace
 import requests
-import kiteConstants
-import scriptList
-from util import util
+from zerodha.kite.utils.generalUtil import util
 import pync
 import pandas
-import dateUtil
+from zerodha.kite.utils import dateUtil, kiteConstants, scriptList
+
 
 def getMinuteMarketData(symbol):
     oi = 1
@@ -32,10 +32,10 @@ def getMinuteMarketData(symbol):
             marketDataList.get('oi').append(data[6])
 
         marketDataFrame = pandas.DataFrame(marketDataList)
-        print("Minute market data fetched for {} with size {}".format(symbol, marketDataFrame.size))
+        logging.info("Minute market data fetched for {} with size {}".format(symbol, marketDataFrame.size))
 
     except Exception as minuteMarketDataResponseException:
-        print(minuteMarketDataResponseException)
+        logging.error(minuteMarketDataResponseException)
         pync.notify(minuteMarketDataResponseException)
 
     return marketDataFrame

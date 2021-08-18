@@ -1,3 +1,5 @@
+userId = 'TJ0224'
+authToken = 'enctoken YOth4LTsIZXDDUQ06mq7X4HfRtPCppV0XaO/eIUYjK0eUS/tan+f4lhIlaGeI9rK1lztKO/YC/adX10qBd1AH6yN/Bwr4YAd3Jqsv0epaJI4qLFyCbAg9Q=='
 
 auth_key = ''
 regular = 'regular'
