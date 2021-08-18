@@ -5,7 +5,7 @@ import threading
 import numpy
 
 
-def intializeConfig():
+def intialize_config():
 
     numpy.set_printoptions(threshold=sys.maxsize)
     logging.basicConfig(

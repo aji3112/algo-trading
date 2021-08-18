@@ -14,3 +14,4 @@ day = 'DAY'
 
 place_order_api = 'https://kite.zerodha.com/oms/orders/regular'
 minute_market_data_api = 'https://kite.zerodha.com/oms/instruments/historical/#token/minute'
+cash_margin_api = 'https://kite.zerodha.com/oms/user/margins'

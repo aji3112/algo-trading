@@ -1,15 +1,15 @@
-from zerodha.kite.utils import kiteConstants
+from zerodha.kite.utils import kite_constants
 
 
-class orderBO:
+class OrderBo:
 
-    def __init__(self, symbol, quantity, price, exchange, transactionType, orderType, product):
-        self.user_id = kiteConstants.userId
+    def __init__(self, symbol, quantity, price, exchange, transaction_type, order_type, product):
+        self.user_id = kite_constants.userId
         self.variety = 'regular'
         self.exchange = exchange
         self.tradingsymbol = symbol
-        self.transaction_type = transactionType
-        self.order_type = orderType
+        self.transaction_type = transaction_type
+        self.order_type = order_type
         self.quantity = quantity
         self.price = price
         self.product = product
