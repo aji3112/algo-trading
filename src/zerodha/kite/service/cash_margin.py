@@ -8,7 +8,7 @@ from zerodha.kite.utils import general_util, kite_constants
 
 
 def available_cash():
-    cash_response = requests.get(kite_constants.cash_margin_api, headers=general_util.headers)
+    cash_response = requests.get(kite_constants.CASH_MARGIN_API, headers=general_util.headers)
     cash_json = json.loads(cash_response.content, object_hook=lambda d: SimpleNamespace(**d))
     print(cash_response.content)
     status = cash_json.status

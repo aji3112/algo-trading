@@ -9,6 +9,7 @@ from zerodha.kite.utils import general_util
 
 
 def place_order(order_bo):
+    orderId = ''
     orderData = {'variety': order_bo.variety,
                  'exchange': order_bo.exchange,
                  'tradingsymbol': order_bo.tradingsymbol,
@@ -26,12 +27,11 @@ def place_order(order_bo):
                  'user_id': order_bo.user_id}
 
     try:
-        place_order_response = requests.post(kite_constants.place_order_api, data=orderData,
+        place_order_response = requests.post(kite_constants.PLACE_ORDER_API, data=orderData,
                                              headers=general_util.headers)
         logging.info(place_order_response.text)
         json_data = json.loads(place_order_response.content, object_hook=lambda d: SimpleNamespace(**d))
         status = json_data.status
-        orderId = ''
         if status == 'success':
             orderId = json_data.data.order_id
             message = 'order successful for symbol {} with transType {}'.format(order_bo.tradingsymbol,

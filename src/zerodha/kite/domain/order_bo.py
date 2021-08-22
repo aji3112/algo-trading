@@ -4,7 +4,7 @@ from zerodha.kite.utils import kite_constants
 class OrderBo:
 
     def __init__(self, symbol, quantity, price, exchange, transaction_type, order_type, product):
-        self.user_id = kite_constants.userId
+        self.user_id = kite_constants.USER_ID
         self.variety = 'regular'
         self.exchange = exchange
         self.tradingsymbol = symbol

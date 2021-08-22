@@ -2,7 +2,7 @@ import datetime
 
 from zerodha.kite.utils import kite_constants, date_util
 
-headers = {'authorization': kite_constants.authToken,
+headers = {'authorization': kite_constants.AUTH_TOKEN,
            'accept': 'application/json, text/plain, */*',
            # 'accept-encoding': 'gzip, deflate, br',
            'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7,ta;q=0.6',

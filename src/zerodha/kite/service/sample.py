@@ -1,6 +1,10 @@
 import logging
 
-from zerodha.kite.service import cash
+from zerodha.kite.config import config
 
 logging.info("Started sample")
-cash.available_cash()
+config.intialize_config()
+
+# todo
+
+exit()

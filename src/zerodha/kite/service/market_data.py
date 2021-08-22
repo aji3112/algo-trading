@@ -5,14 +5,16 @@ import requests
 from zerodha.kite.utils import general_util
 import pync
 import pandas
-from zerodha.kite.utils import date_util, kite_constants, script_list
+from zerodha.kite.service import instruments
+from zerodha.kite.utils import date_util, kite_constants
 
 
 def get_minute_market_data(symbol):
     oi = 1
+    market_data_frame = pandas.DataFrame
     from_date = date_util.get_minute_market_data_date().get('from')
     to_date = date_util.get_minute_market_data_date().get('to')
-    minute_market_data_api = kite_constants.minute_market_data_api.replace('#token', script_list.scrips.get(symbol))
+    minute_market_data_api = kite_constants.MINUTE_MARKET_DATA_API.replace('#token', instruments.scrips.get(symbol))
     params = {'from': from_date,
               'to': to_date,
               'oi': oi}
