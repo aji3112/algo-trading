@@ -20,3 +20,17 @@ def get_macd(ohlc: pandas.DataFrame):
     # pandas.set_option("display.max_columns", None)
     # print(ohlc[['date','close','macd_s','macd','macd_h']])
     return ohlc
+
+
+def is_increasing_histogram(macd_data_frame, time_interval):
+    return all(macd_data_frame['macd_h'][i] <= macd_data_frame['macd_h'][i + 1] for i in
+               range(len(macd_data_frame['macd_h']) - time_interval, len(macd_data_frame['macd_h']) - 1))
+
+
+def is_decreasing_histogram(macd_data_frame, time_interval):
+    return all(macd_data_frame['macd_h'][i] >= macd_data_frame['macd_h'][i + 1] for i in
+               range(len(macd_data_frame['macd_h']) - time_interval, len(macd_data_frame['macd_h']) - 1))
+
+
+def is_macd_crossed_signal_line(macd_data_frame):
+    return macd_data_frame['macd_h'][len(macd_data_frame['macd_h']) - 1] >= 0

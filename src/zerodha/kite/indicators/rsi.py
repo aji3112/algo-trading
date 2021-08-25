@@ -35,4 +35,16 @@ def get_rsi(ohlc: pandas.DataFrame, period: int = 14, round_rsi: bool = True):
 
     rsi = numpy.where(up == 0, 0, numpy.where(down == 0, 100, 100 - (100 / (1 + up / down))))
 
-    return numpy.round(rsi, 2) if round_rsi else rsi
+    ohlc['rsi'] = rsi
+
+    return ohlc
+
+
+def is_increasing_rsi(rsi_data_frame, time_interval):
+    return all(rsi_data_frame['rsi'][i] <= rsi_data_frame['rsi'][i + 1] for i in
+               range(len(rsi_data_frame['rsi']) - time_interval, len(rsi_data_frame['rsi']) - 1))
+
+
+def is_decreasing_rsi(rsi_data_frame, time_interval):
+    return all(rsi_data_frame['rsi'][i] >= rsi_data_frame['rsi'][i + 1] for i in
+               range(len(rsi_data_frame['rsi']) - time_interval, len(rsi_data_frame['rsi']) - 1))

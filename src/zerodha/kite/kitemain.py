@@ -1,6 +1,6 @@
 import logging
 from zerodha.kite.config import config
-from zerodha.kite.service import cron_jobs
+from zerodha.kite.cron import cron_jobs
 
 config.intialize_config()
 

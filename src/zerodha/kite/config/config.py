@@ -10,6 +10,8 @@ def intialize_config():
     numpy.set_printoptions(threshold=sys.maxsize)
     pandas.set_option("display.max_rows", None, "display.max_columns", None)
     logging.basicConfig(
-        format='%(asctime)s %(levelname)s %(threadName)-8s %(message)s',
+        filename='/Users/ajith/Documents/kite-algo-trading/logs/kite-algo-trading-logs.log',
+        format='%(asctime)s.%(msecs)03d %(levelname)s %(threadName)-8s %(message)s',
         level=logging.INFO,
-        datefmt='%Y-%m-%d %H:%M:%S')
+        datefmt='%Y-%m-%d %H:%M:%S',
+        force=True)
