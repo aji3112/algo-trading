@@ -1,15 +1,14 @@
 import datetime
 
+from zerodha.kite.utils import kite_constants
 
-def get_minute_market_data_date():
-    todayDate = datetime.date.today()
-    fromDate = todayDate + datetime.timedelta(days=-6)
-    minuteMarketDataDate = {'to': todayDate, 'from': fromDate}
-    return minuteMarketDataDate
+
+def default_market_data_start_date():
+    return datetime.date(2001, 1, 1)
 
 
 def get_market_closing_time():
-    closingTime = datetime.datetime.now().replace(hour=15, minute=55, second=0, microsecond=0)
+    closingTime = datetime.datetime.now().replace(hour=23, minute=55, second=0, microsecond=0)
     return closingTime
 
 

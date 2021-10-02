@@ -17,7 +17,18 @@ headers = {'authorization': kite_constants.AUTH_TOKEN,
 
 def is_market_open():
     if datetime.datetime.now().__le__(date_util.get_market_closing_time()) and datetime.datetime.now().__ge__(
-            date_util.get_market_closing_time()):
+            date_util.get_market_starting_time()):
         return 1
     else:
         return 0
+
+
+def get_market_data_date_range(type):
+    time_range = 0
+    if type == kite_constants.MINUTE:
+        time_range = kite_constants.MAX_MINUTE_MARKET_DATA_RANGE
+    elif type == kite_constants.DAY:
+        time_range = kite_constants.MAX_DAY_MARKET_DATA_RANGE
+    elif type == kite_constants.FIVE_MINUTE:
+        time_range = kite_constants.MAX_FIVE_MINUTE_MARKET_DATA_RANGE
+    return time_range

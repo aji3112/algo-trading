@@ -4,12 +4,12 @@ import threading
 from zerodha.kite.domain.order_bo import OrderBo
 from zerodha.kite.indicators import rsi, macd
 from zerodha.kite.service import market_data, order, instruments
-from zerodha.kite.utils import kite_constants
+from zerodha.kite.utils import kite_constants, date_util
 
 
 def algo_start():
     threads = []
-    for scrips in instruments.scrips:
+    for scrips in instruments.scrips.items():
         algoThread = threading.Thread(target=intraday_algo, args=(scrips,))
         algoThread.start()
         threads.append(algoThread)
@@ -19,7 +19,7 @@ def algo_start():
 
 def intraday_algo(symbol):
     logging.info("Intraday Algo started for symbol {} ".format(symbol))
-    market_data_data_frame = market_data.get_minute_market_data(symbol)
+    market_data_data_frame = market_data.get_market_data(symbol, kite_constants.MINUTE, kite_constants.DEFAULT_MAX_MINUTE_MARKET_DATA_RANGE, download=False)
 
     rsi_data_frame = rsi.get_rsi(market_data_data_frame)
     current_rsi = rsi_data_frame['rsi'][len(rsi_data_frame) - 1]
@@ -37,14 +37,14 @@ def intraday_algo(symbol):
     is_decreasing_macd = macd.is_decreasing_histogram(macd_data_frame, time_interval=2)
     logging.info("Is MACD_H decreasing for symbol {} : {}".format(symbol, is_decreasing_macd))
 
-    if current_rsi < 20:
+    if current_rsi < 30:
         if is_increasing_rsi and is_increasing_macd:
             logging.info("Placing BUY order for symbol {}".format(symbol))
             buy_order_bo = OrderBo(is_increasing_macd, 1000, 0, kite_constants.NSE, kite_constants.BUY,
                                    kite_constants.MARKET,
                                    kite_constants.MIS)
             # order.place_order(buy_order_bo)
-    elif current_rsi > 80:
+    elif current_rsi > 70:
         if is_decreasing_rsi and is_decreasing_macd:
             logging.info("Placing SELL order for symbol {}".format(symbol))
             sell_order_bo = OrderBo(symbol, 1000, 0, kite_constants.NSE, kite_constants.SELL, kite_constants.MARKET,
